@@ -1,0 +1,26 @@
+root:
+    pattern: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /en/docs/bootstrapselect-bundle
+        permanent: false
+
+locale:
+    pattern: /en
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /en/docs/bootstrapselect-bundle
+        permanent: false
+
+docs:
+    pattern: /en/docs
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /en/docs/bootstrapselect-bundle
+        permanent: false
+
+bootstrapselect:
+    resource: "@BootstrapSelectBundle/Resources/config/routing.yml"
+    prefix:   /{_locale}/docs/bootstrapselect-bundle
+    requirements:
+        _locale: en|fr

@@ -1,0 +1,78 @@
+
+
+<form class="form-horizontal search-form" method="post" >
+
+    <div class="form-group">
+        <div class="col-md-3"><p>Titre</p></div>
+        <div class="col-md-9">{{ form_row(form.titre) }}</div>
+    </div>
+    <hr />
+    <div class="form-group">
+        <div class="col-md-3"><p>Millésime<p></p></div>
+        <div class="col-md-9">{{ form_row(form.millesime) }}</div>
+    </div>
+    <hr />
+    <div class="form-group">
+        <div class="col-md-3"><p>Couleur<p></div>
+        <div class="col-md-9">{{ form_row(form.couleur) }}</div>
+    </div>
+    <hr />
+    <div class="form-group">
+
+        <div class="col-md-3"><p>Prix<p></div>
+        <div class="col-md-8 range-poster"> {{ form_widget(form.prix) }} </div>
+        <div class="col-md-1"> €</div>
+    </div>
+
+    {#<div class="form-group">
+        {{ form_row(form.titre) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(form.millesime) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(form.couleur) }}
+    </div>
+
+    <div class="form-group">
+
+        {{ form_widget(form.prix) }}€
+    </div>#}
+
+    {{ form_widget(form._token) }}
+
+    <button type="submit" class="btn btn-primary">Rechercher</button>
+</form>
+{#
+<form class="form-horizontal poster_form" method="post" {{ form_enctype(form) }} >
+
+    <div class="form-group">
+        <div class="col-md-4"><h4>Titre</h4></div>
+        <div class="col-md-8">{{ form_row(form.titre) }}</div>
+    </div>
+    <hr />
+    <div class="form-group">
+        <div class="col-md-4"><h4>Millésime</h4></div>
+        <div class="col-md-8">{{ form_row(form.millesime) }}</div>
+    </div>
+    <hr />
+    <div class="form-group">
+        <div class="col-md-4"><h4>Couleur</h4></div>
+        <div class="col-md-8">{{ form_row(form.couleur) }}</div>
+    </div>
+    <hr />
+    <div class="form-group">
+
+        <div class="col-md-4"><h4>Prix</h4></div>
+        <div class="col-md-7 range-poster"> {{ form_widget(form.prix) }} </div>
+        <div class="col-md-1"> €</div>
+    </div>
+    <hr />
+
+    <hr />
+    {{ form_widget(form._token) }}
+    <br />
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </div>
+</form>#}

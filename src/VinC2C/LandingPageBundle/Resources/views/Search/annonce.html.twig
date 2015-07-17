@@ -1,0 +1,18 @@
+{# empty Twig template #}
+
+
+<div class="text-center">
+
+    {% if offre.image is not null %}
+        <img src="{{asset('uploads/img/'~offre.image.id~'.'~offre.image.path)}}" class="img-responsive img-bout" alt="Responsive image" style='height:500px;'>
+
+    {% endif %}
+
+
+
+
+    {{offre.id}}
+
+    <h1>{{offre.titre}}</h1>
+
+</div>

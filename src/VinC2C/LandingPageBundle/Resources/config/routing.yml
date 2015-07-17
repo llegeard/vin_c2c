@@ -1,0 +1,18 @@
+ 
+accueil:
+    path:     /accueil
+    defaults: { _controller: VinC2CLandingPageBundle:LandingPage:accueil }
+    
+search:
+    path:     /search
+    defaults: { _controller: VinC2CLandingPageBundle:LandingPage:search }
+    
+annonce:
+  pattern: /search/annonce
+  defaults: { _controller: VinC2CLandingPageBundle:LandingPage:annonce }
+  requirements:
+    _method: POST
+    
+poster:
+    path:     /poster
+    defaults: { _controller: VinC2CLandingPageBundle:LandingPage:poster }

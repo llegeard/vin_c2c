@@ -1,0 +1,115 @@
+{# src/VinC2C/LandingPageBundle/Resources/views/Search/poster.html.twig #}
+
+{% extends "::layout.html.twig" %}
+
+{% block stylesheets %}
+    <!--@OCPlatformBundle/Resources/public/css/main.css-->
+    {% stylesheets
+ 'bundles/vinc2clandingpage/css/search.css'filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid">
+        {% include 'VinC2CLandingPageBundle:Search:navbar.html.twig' %}
+    </div>
+    <br />
+    <div class="container">
+        <h1 class="text-center">Votre annonce</h1>
+        <br /><br />
+        <form class="form-horizontal poster_form" method="post" {{ form_enctype(form) }} >
+
+            <div class="form-group">
+                <div class="col-md-4"><h4>Titre</h4></div>
+                <div class="col-md-8">{{ form_row(form.titre) }}</div>
+            </div>
+            <hr />
+            <div class="form-group">
+                <div class="col-md-4"><h4>Description</h4></div>
+                <div class="col-md-8">{{ form_row(form.description) }}</div>
+            </div>
+            <hr />
+            <div class="form-group">
+                <div class="col-md-4"><h4>Millésime</h4></div>
+                <div class="col-md-8">{{ form_row(form.millesime) }}</div>
+            </div>
+            <hr />
+            <div class="form-group">
+                <div class="col-md-4"><h4>Couleur</h4></div>
+                <div class="col-md-8">{{ form_row(form.couleur) }}</div>
+            </div>
+            <hr />
+            <div class="form-group">
+
+                <div class="col-md-4"><h4>Prix</h4></div>
+                <div class="col-md-7 range-poster"> {{ form_widget(form.prix) }} </div>
+                <div class="col-md-1"> €</div>
+            </div>
+            <hr />
+            <div class="form-group">
+
+                <div class="col-md-4"><h4>Photo</h4></div>
+                {#<div class="col-md-8">
+                    <span class="btn btn-default btn-file">Ajouttez une photo... {{ form_widget(form.image) }}</span>
+                </div>#}
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <span class="btn btn-default btn-file">
+                                Ajoutez une photo... {{ form_widget(form.image) }}
+                            </span>
+                        </span>
+                        <input type="text" class="form-control" readonly>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            {{ form_widget(form._token) }}
+            <br />
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </div>
+        </form>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+        $('.range-bar').slider();
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker();
+        });
+
+
+        $(document).on('change', '.btn-file :file', function () {
+            var input = $(this),
+                    numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [numFiles, label]);
+        });
+
+        $(document).ready(function () {
+            $('.btn-file :file').on('fileselect', function (event, numFiles, label) {
+
+                var input = $(this).parents('.input-group').find(':text'),
+                        log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+                if (input.length) {
+                    input.val(log);
+                } else {
+                    if (log)
+                        alert(log);
+                }
+
+            });
+        });
+
+
+    </script>
+{% endblock %}

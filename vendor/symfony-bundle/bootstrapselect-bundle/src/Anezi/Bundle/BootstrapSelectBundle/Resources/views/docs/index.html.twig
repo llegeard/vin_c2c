@@ -1,0 +1,231 @@
+{% extends "::base.html.twig" %}
+{% trans_default_domain "messages" %}
+{% block mainContentOfPage %}
+<h1>{{ 'bootstrapselect.title'|trans }}</h1>
+
+<p>{{ 'bootstrapselect.library.description'|trans|raw }}</p>
+
+<p>{{ 'bootstrapselect.description'|trans|raw }}</p>
+    
+    {% for number,header in headers %}
+        <h2 id="{{ header.id }}">
+            {{ number + 1 }}.
+            {{ ('bootstrapselect.docs.' ~ header.id ~ '.title')|trans }}
+        </h2>
+        {{ block(header.id) }}
+        {% if header.children is defined %}
+            {% for subnumber,subheader in header.children %}
+                <h3 id="{{ subheader.id }}">
+                    {{ number + 1 }}.{{ subnumber + 1 }}
+                    {{ ('bootstrapselect.docs.' ~ header.id ~ '.' ~ subheader.id ~ '.title')|trans|raw }}
+                </h3>
+                {{ block(subheader.id) }}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+
+    <footer>
+        <div class="container">
+            <div>
+                <ul class="docs-social-buttons">
+                    <li>
+                        <iframe class="github-btn"
+                                src="https://mdo.github.io/github-buttons/github-btn.html?user=symfony-bundle&amp;repo={{ title|lower }}-bundle&amp;type=watch&amp;count=true"
+                                width="100" height="20" title="Star on GitHub">
+                        </iframe>
+                    </li>
+                    <li>
+                        <iframe class="github-btn" src="https://mdo.github.io/github-buttons/github-btn.html?user=symfony-bundle&amp;repo={{ title|lower }}-bundle&amp;type=fork&amp;count=true"
+                                width="100" height="20" title="Fork on GitHub"></iframe>
+                    </li>
+                    <li class="follow-btn">
+                        <a href="https://twitter.com/HassanAmouhzi"
+                           class="twitter-follow-button" data-link-color="#0069D6"
+                           data-show-count="true">Follow @HassanAmouhzi</a>
+                    </li>
+                    <li class="tweet-btn">
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{app.request.uri}}" data-count="horizontal" data-via="HassanAmouhzi" data-related="HassanAmouhzi:Creator of Anezi.net">Tweet</a>
+                    </li>
+                </ul>
+            </div>
+            <p>
+                Documentation licensed under
+                <a href="http://creativecommons.org/licenses/by/3.0/">
+                    CC BY 3.0</a>.
+            </p>
+            <ul class="docs-footer-links muted">
+                <li>Currently v{{ current_version }}</li>
+                <li>&middot;</li>
+                <li><a href="https://github.com/symfony-bundle/{{ title|lower }}-bundle/issues">Issues</a></li>
+                <li>&middot;</li>
+                <li><a href="https://github.com/symfony-bundle/{{ title|lower }}-bundle/releases">Releases</a></li>
+            </ul>
+        </div>
+    </footer>
+{% endblock mainContentOfPage %}
+
+{% block systemRequirements %}
+            <p>
+                {{ 'bootstrapselect.docs.installation.systemRequirements.content1'|trans }}.
+                {{ 'bootstrapselect.docs.installation.systemRequirements.content2'|trans }},
+                {{ 'bootstrapselect.docs.installation.systemRequirements.content3'|trans
+                ({'%file%' : '<a href="https://github.com/symfony-bundle/' ~
+                title|lower ~ '-bundle/blob/master/composer.json"><b>Composer.json</b></a>'})|raw
+                }}.
+            </p>
+{% endblock systemRequirements %}
+
+{% block composerRequirements %}
+<p>
+    {{ 'bootstrapselect.docs.installation.composerRequirements.content'|trans }}
+</p>
+
+{% highlight json %}
+{
+    "require": {
+        "symfony-bundle/{{ title|lower }}-bundle": "{{ composer_version }}"
+    }
+}
+{% endhighlight %}
+
+    <p>
+        {{ 'bootstrapselect.docs.installation.composerRequirements.content2'|trans }}
+    </p>
+
+    {% highlight json %}
+{
+    "extra": {
+        "{{ title|lower }}-version": "~1.6"
+    }
+}
+    {% endhighlight %}
+
+{% endblock composerRequirements %}
+
+{% block enableAssetsInstaller %}
+<p>
+    {{ 'bootstrapselect.docs.installation.enableAssetsInstaller.content1'|trans }}
+    <code>Anezi\\Bundle\\{{ title }}Bundle\\Composer\\ScriptHandler\\installAssets</code>
+    {{ 'bootstrapselect.docs.installation.enableAssetsInstaller.content2'|trans }}.
+    {{ 'bootstrapselect.docs.installation.enableAssetsInstaller.content3'|trans }}:
+</p>
+{% highlight json %}
+{
+    "scripts": {
+        "post-install-cmd": [
+            "Anezi\\Bundle\\{{ title }}Bundle\\Composer\\ScriptHandler::installAssets"
+        ],
+        "post-update-cmd": [
+            "Anezi\\Bundle\\{{ title }}Bundle\\Composer\\ScriptHandler::installAssets"
+        ]
+    }
+}
+{% endhighlight %}
+{% endblock enableAssetsInstaller %}
+
+{% block bundleActivation %}
+<p>
+    {{ 'bootstrapselect.docs.installation.bundleActivation.content'|trans|raw }}.
+</p>
+{% highlight php %}
+<?php
+// app/AppKernel.php
+
+public function registerBundles()
+{
+    $bundles = array(
+        // ...
+        new Anezi\Bundle\{{ title }}Bundle\{{ title }}Bundle(),
+        // ...
+    );
+}
+?>{% endhighlight %}
+{% endblock bundleActivation %}
+
+{% block projectUpdate %}
+{{ highlight('$ composer update', 'bash') }}
+{% endblock projectUpdate %}
+
+{% block twigAssets %}
+    {% highlight htmltwig %}{% verbatim %}
+<link href="{{ asset('bundles/bootstrapselect-assets/css/bootstrap-select.css') }}"
+      rel="stylesheet"
+      type="text/css" />
+
+{% stylesheets 'bundles/bootstrapselect-assets/css/bootstrap-select.css.map'
+               output='css/bootstrap-select.css.map' %}
+{% endstylesheets %}
+
+<script type="text/javascript"
+        src="{{ asset('bundles/bootstrapselect-assets/js/bootstrap-select.js') }}">
+</script>
+
+<script type="text/javascript"
+        src="{{ asset('bundles/bootstrapselect-assets/js/i18n/defaults-fr_FR.js') }}">
+</script>
+{% endverbatim %}{% endhighlight %}
+{% endblock twigAssets %}
+
+{% block license %}
+    <p>{{ 'bootstrapselect.docs.license.content1'|trans|raw }}</p>
+    <p>{{ 'bootstrapselect.docs.license.content2'|trans|raw }}</p>
+{% endblock license %}
+
+{% block docs %}
+    <p>{{ 'bootstrapselect.docs.usage.docs.content'|trans|raw }}</p>
+
+    <label>
+        <select class="selectpicker">
+            <option>Mustard</option>
+            <option>Ketchup</option>
+            <option>Relish</option>
+        </select>
+    </label>
+
+    <label>
+        <select class="selectpicker" data-style="btn-primary" data-live-search="true">
+            <optgroup label="Picnic">
+                <option>Mustard</option>
+                <option>Ketchup</option>
+                <option>Relish</option>
+            </optgroup>
+            <optgroup label="Camping" data-style="btn-info">
+                <option>Tent</option>
+                <option>Flashlight</option>
+                <option>Toilet Paper</option>
+            </optgroup>
+        </select>
+    </label>
+
+    <label>
+        <select class="selectpicker" multiple data-style="btn-success">
+            <option>Mustard</option>
+            <option>Ketchup</option>
+            <option>Relish</option>
+        </select>
+    </label>
+
+    <label>
+        <select class="selectpicker" multiple data-max-options="2" data-style="btn-warning">
+            <option>Mustard</option>
+            <option>Ketchup</option>
+            <option>Relish</option>
+        </select>
+    </label>
+
+    <label>
+        <select class="selectpicker" multiple data-max-options="2" data-style="btn-danger">
+            <optgroup label="Condiments" data-max-options="2">
+                <option>Mustard</option>
+                <option>Ketchup</option>
+                <option>Relish</option>
+            </optgroup>
+            <optgroup label="Breads" data-max-options="2">
+                <option>Plain</option>
+                <option>Steamed</option>
+                <option>Toasted</option>
+            </optgroup>
+        </select>
+    </label>
+
+{% endblock docs %}

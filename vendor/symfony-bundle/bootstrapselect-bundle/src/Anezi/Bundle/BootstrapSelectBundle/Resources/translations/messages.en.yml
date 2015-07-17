@@ -1,0 +1,56 @@
+bootstrapselect:
+    title: Bootstrap-select Bundle for Symfony
+    description: >
+            This bundle lets you easily use it in your Symfony projects.
+
+    library:
+        description: >
+            Bootstrap-select is a custom select for @twitter bootstrap using button dropdown.
+
+    docs:
+        installation:
+            title: Installation
+            systemRequirements:
+                title: System requirements
+                content1: No system requirements for this bundle
+                content2: Required packages will be installed automatically
+                content3: see %file% file for more details
+            composerRequirements:
+                title: Composer requirements
+                content: Add bundle to your composer.json file
+                content2: Chose the wanted version of Bootstrap-select with an extra composer parameter:
+            enableAssetsInstaller:
+                title: Enable assets installer
+                content1: Add this line
+                content2: >
+                    in post-install-cmd and post-update-cmd sections of your composer.json
+                content2: It will looks like
+            bundleActivation:
+                title: Bundle activation
+                content: Add bundle to your application kernel
+            projectUpdate:
+                title: Project update
+        usage:
+            title: Usage
+            twigAssets:
+                title: Twig templates
+            docs:
+                title: Bootstrap-select Documentation
+                content: >
+                    For Bootstrap-select documentation, please follow:
+                        <a href="http://silviomoreto.github.io/bootstrap-select/">
+                            this link
+                        </a>.
+        license:
+            title: Autors and license
+            content1: >
+                <a href="http://silviomoreto.github.io/bootstrap-select/">
+                <b>Bootstrap-select</b></a> by <b>
+                <a href="https://github.com/caseyjhol">caseyjhol</a>
+                </b>
+                is licenced under the
+                <a href="https://github.com/silviomoreto/bootstrap-select/blob/master/LICENSE">
+                MIT License</a>.
+            content2: >
+                This bundle is available under the MIT license, and the autor is
+                <b>Hassan Amouhzi</a>

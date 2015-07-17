@@ -1,0 +1,241 @@
+<?php
+
+// src/VinC2C/LandingPageBundle/Entity/Image
+
+namespace VinC2C\LandingPageBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+// N'oubliez pas ce use :
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+/**
+ * @ORM\Entity(repositoryClass="VinC2C\LandingPageBundle\Entity\ImageRepository")
+ * @ORM\HasLifecycleCallbacks
+ */
+class Image {
+
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(name="url", type="string", length=255, nullable=true)
+     */
+    private $url;
+
+    /**
+     * @ORM\Column(name="alt", type="string", length=255, nullable=true)
+     */
+    private $alt;
+    private $file;
+
+    public function getFile() {
+        return $this->file;
+    }
+
+    public function setFile(UploadedFile $file = null) {
+        $this->file = $file;
+    }
+
+    // ...
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     * @return Image
+     */
+    public function setUrl($url) {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl() {
+        return $this->url;
+    }
+
+    /**
+     * Set alt
+     *
+     * @param string $alt
+     * @return Image
+     */
+    public function setAlt($alt) {
+        $this->alt = $alt;
+
+        return $this;
+    }
+
+    /**
+     * Get alt
+     *
+     * @return string
+     */
+    public function getAlt() {
+        return $this->alt;
+    }
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $path;
+
+//    public function getAbsolutePath() {
+//        return null === $this->path ? null : $this->getUploadRootDir() . '/' . $this->path;
+//    }
+
+    public function getWebPath() {
+        return null === $this->path ? null : $this->getUploadDir() . '/' . $this->path;
+    }
+
+    protected function getUploadRootDir() {
+        // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
+        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+    }
+
+    protected function getUploadDir() {
+        // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
+        // le document/image dans la vue.
+        return 'uploads/img';
+    }
+
+//    /**
+//     * @ORM\PrePersist()
+//     * @ORM\PreUpdate()
+//     */
+//    public function preUpload() {
+//        if (null !== $this->file) {
+//            // faites ce que vous voulez pour générer un nom unique
+//            $this->path = sha1(uniqid(mt_rand(), true)) . '.' . $this->file->guessExtension();
+//        }
+//    }
+    // propriété utilisé temporairement pour la suppression
+    private $filenameForRemove;
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload() {
+        if (null !== $this->file) {
+            $this->path = $this->file->guessExtension();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload() {
+        if (null === $this->file) {
+            return;
+        }
+
+        // vous devez lancer une exception ici si le fichier ne peut pas
+        // être déplacé afin que l'entité ne soit pas persistée dans la
+        // base de données comme le fait la méthode move() de UploadedFile
+        $this->file->move($this->getUploadRootDir(), $this->id . '.' . $this->file->guessExtension());
+
+        unset($this->file);
+    }
+
+    /**
+     * @ORM\PreRemove()
+     */
+    public function storeFilenameForRemove() {
+        $this->filenameForRemove = $this->getAbsolutePath();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload() {
+        if ($this->filenameForRemove) {
+            unlink($this->filenameForRemove);
+        }
+    }
+
+    public function getAbsolutePath() {
+        return null === $this->path ? null : $this->getUploadRootDir() . '/' . $this->id . '.' . $this->path;
+    }
+
+//
+//    public function upload() {
+//
+//        // Si jamais il n'y a pas de fichier (champ facultatif), on ne fait rien
+//
+//        if (null === $this->file) {
+//
+//            return;
+//        }
+//
+//        // On récupère le nom original du fichier de l'internaute
+//
+//        $name = $this->file->getClientOriginalName();
+//
+//        // On déplace le fichier envoyé dans le répertoire de notre choix
+//        $this->file->move($this->getUploadRootDir(), $name);
+//
+//        // On sauvegarde le nom de fichier dans notre attribut $url
+//        $this->url = $name;
+//
+//        // On crée également le futur attribut alt de notre balise <img>
+//        $this->alt = $name;
+//    }
+//
+//
+//    public function getUploadDir() {
+//
+//        // On retourne le chemin relatif vers l'image pour un navigateur (relatif au répertoire /web donc)
+//
+//        return 'uploads/img';
+//    }
+//
+//    protected function getUploadRootDir() {
+//
+//        // On retourne le chemin relatif vers l'image pour notre code PHP
+//
+//        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+//    }
+//
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return Image
+     */
+    public function setPath($path) {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath() {
+        return $this->path;
+    }
+
+}

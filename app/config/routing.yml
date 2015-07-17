@@ -1,0 +1,10 @@
+vin_c2_c_user:
+    resource: "@VinC2CUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+vin_c2_c_landing_page:
+    resource: "@VinC2CLandingPageBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

@@ -1,0 +1,3 @@
+bootstrapselect_homepage:
+    path:     /
+    defaults: { _controller: BootstrapSelectBundle:Docs:index }

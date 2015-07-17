@@ -1,0 +1,3 @@
+vin_c2_c_user_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: VinC2CUserBundle:Default:index }

@@ -1,0 +1,100 @@
+
+html,body { height: 100%; margin: 0px; padding: 0px; }
+
+@font-face {
+    font-family: 'test';
+    src : url('../../bundles/vinc2clandingpage/font-family/anke.ttf') format('ttf'),
+        url('../../bundles/vinc2clandingpage/font-family/anke.otf') format('otf');
+}
+
+.header {
+    background: url(../../bundles/vinc2clandingpage/image/degust1.jpg) no-repeat center top fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height:100%;
+    position: relative;
+    padding:0;
+}
+
+.navbar, .navbar-default, .transparent{
+    background: rgba(0,0,0,0);
+    border: none;
+    color:white;
+    padding-left:15px;
+    padding-right: 15px;
+}
+.navbar-default .navbar-brand{
+    color: white;
+    font-family: 'Impact', serif;
+    font-weight: bold;
+}
+
+.navbar-default .navbar-nav > li > a{
+
+    color: white;
+}
+
+.header-bottom{
+    position: absolute;
+    bottom: 0;
+    color:white;
+    background: rgba(0,0,0,0.5);
+    height:110px;
+    width: 100%;
+    padding-top: 30px;
+}
+
+.header-center{
+    position: absolute;
+    bottom: 55%;
+    color:white;
+    width: 100%;
+}
+
+.header-center h1{
+
+    font-weight: bold;
+    font-size: 45px;
+    font-family: Impact, sans-serif;
+}
+
+.header-center p{
+
+    font-weight: bold;
+    padding: 10px;
+    padding-bottom: 15px;
+    padding-top: 0;
+    font-family: Impact, sans-serif;
+}
+
+
+
+.m_emploi{
+    background: rgba(0,0,0,0.2);
+}
+
+/*.form-control{
+    font-size: 20px;
+    height:50px;
+}
+
+.form-inline .btn, .range-price{
+
+    font-size: 20px;
+}
+.range-price{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.range-price .slider-horizontal{
+    margin-left: 7px;
+}*/
+
+.slider-horizontal{
+    margin-left: 15px;
+    margin-right: 15px;
+}
+

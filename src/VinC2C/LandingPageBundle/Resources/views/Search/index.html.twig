@@ -1,0 +1,115 @@
+
+
+{# src/VinC2C/LandingPageBundle/Resources/views/Search/index.html.twig #}
+{% extends "::layout.html.twig" %}
+
+
+{% block stylesheets %}
+    <!--@OCPlatformBundle/Resources/public/css/main.css-->
+    {% stylesheets
+ 'bundles/vinc2clandingpage/css/search.css'filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+
+
+        {% include 'VinC2CLandingPageBundle:Search:navbar.html.twig' %}
+
+        <div class="col-md-7">
+            <div class="row annonce-form text-center">
+
+                {{ include('VinC2CLandingPageBundle:Search:form.html.twig') }}
+
+
+            </div>
+            <img src="{{asset('image/loading.gif')}}" class="img-responsive loading" alt="Responsive image" style='display:none;'>
+
+
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+                <div class="alert alert-success" role="alert">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+
+
+            {% if liste_annonces is defined %}
+                <div class="row">
+                    <div class="well annonces">
+                        <div class="row">
+
+                            {% for offre in liste_annonces %}
+                                <div class="col-md-4 annonce" OnClick='annoncer("{{offre.id}}");' id='{{offre.id}}'>
+                                    <div class="img-annonce">
+                                        {% if offre.image is not null %}
+                                            <img src="{{asset('uploads/img/'~offre.image.id~'.'~offre.image.path)}}" class="img-responsive img-bout" alt="Responsive image">
+
+                                        {% endif %}
+                                    </div>
+                                    <h4>{{ offre.titre }}</h4>
+
+                                </div>
+
+
+                            {% else %}
+
+                                <p>Désolé il n'y a, pour le moment, aucune annonce correspondant à votre recherche.</p>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="col-md-5 detail-annonce" style="position:fixed; right:0; margin-top:30px;">
+
+
+        </div>
+
+
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+        $('.range-bar').slider();
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker();
+        });
+        {#function annoncer(id) {
+            $(".detail-annonce").empty();
+            $(id).clone().appendTo(".detail-annonce");
+        }#}
+
+            function annoncer(id) {
+        {#$(".loading").show();#}
+                $('.annonce').removeClass("selected-annonce");
+                $('#' + id).addClass("selected-annonce");
+
+                var DATA = 'id=' + id;
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('annonce')}}",
+                    data: DATA,
+                    cache: false,
+                    success: function (data) {
+                        $('.detail-annonce').html(data);
+        {#$(".loading").hide();#}
+                    }
+                });
+                return false;
+            }
+
+
+    </script>
+{% endblock %}

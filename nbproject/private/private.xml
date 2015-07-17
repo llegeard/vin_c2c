@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/projet/www-dev/private/vin_c2c/src/VinC2C/LandingPageBundle/Resources/public/css/accueil.css</file>
+            <file>file:/projet/www-dev/private/vin_c2c/src/VinC2C/LandingPageBundle/Resources/config/routing.yml</file>
+            <file>file:/projet/www-dev/private/vin_c2c/src/VinC2C/LandingPageBundle/Resources/public/image/v-1_3.jpg</file>
+            <file>file:/projet/www-dev/private/vin_c2c/app/config/config.yml</file>
+            <file>file:/projet/www-dev/private/vin_c2c/src/VinC2C/LandingPageBundle/Resources/views/Search/index.html.twig</file>
+            <file>file:/projet/www-dev/private/vin_c2c/src/VinC2C/LandingPageBundle/Entity/OffreRepository.php</file>
+            <file>file:/projet/www-dev/private/vin_c2c/src/VinC2C/LandingPageBundle/Form/AnnonceSearchType.php</file>
+            <file>file:/projet/www-dev/private/vin_c2c/src/VinC2C/LandingPageBundle/Resources/public/css/search.css</file>
+            <file>file:/projet/www-dev/private/vin_c2c/app/AppKernel.php</file>
+            <file>file:/projet/www-dev/private/vin_c2c/src/VinC2C/LandingPageBundle/Controller/LandingPageController.php</file>
+            <file>file:/projet/www-dev/private/vin_c2c/src/VinC2C/LandingPageBundle/Resources/views/Search/annonce.html.twig</file>
+            <file>file:/projet/www-dev/private/vin_c2c/src/VinC2C/LandingPageBundle/Resources/views/Accueil/index.html.twig</file>
+            <file>file:/projet/www-dev/private/vin_c2c/src/VinC2C/LandingPageBundle/Resources/public/image/v-1-1.jpg</file>
+            <file>file:/projet/www-dev/private/vin_c2c/src/VinC2C/LandingPageBundle/Resources/public/image/v-1.jpg</file>
+        </group>
+    </open-files>
+</project-private>

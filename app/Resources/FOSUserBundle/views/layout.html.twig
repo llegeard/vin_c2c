@@ -1,0 +1,25 @@
+
+{% extends '::layout.html.twig' %}
+{% block title %}Acme Demo Application{% endblock %}
+
+{% block stylesheets %}<!--@OCPlatformBundle/Resources/public/css/main.css-->
+
+    {% stylesheets 'assets/fosuser/login.css' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+{% endblock %}
+
+{% block content %}
+    <br /><br /><br />
+    <div class="container">
+
+        <div class="block-login">
+
+            <h1 class="text-center">Connexion</h1>
+            <br /><br />
+        {% block fos_user_content %}{% endblock %}
+
+    </div>
+</div>
+{% endblock %}
